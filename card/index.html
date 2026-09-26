@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nitesh Card</title>
+<meta name="description" content="Digital visiting card — save my contact in one tap.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --paper:       #FBF8F3;
+    --card:        #FFFFFF;
+    --edge:        #F0EAE0;
+    --ink:         #1B2A4A;
+    --ink-soft:    #56658A;
+    --rule:        #DED6C8;
+    --marigold:    #DE9412;
+    --marigold-dp: #B57509;
+    --on-marigold: #24180A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper:       #12192A;
+      --card:        #1A2338;
+      --edge:        #212C45;
+      --ink:         #EFEDE7;
+      --ink-soft:    #9AA6C2;
+      --rule:        #2E3A56;
+      --marigold:    #E5A63A;
+      --marigold-dp: #F0B855;
+      --on-marigold: #1A1206;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper:       #12192A;
+    --card:        #1A2338;
+    --edge:        #212C45;
+    --ink:         #EFEDE7;
+    --ink-soft:    #9AA6C2;
+    --rule:        #2E3A56;
+    --marigold:    #E5A63A;
+    --marigold-dp: #F0B855;
+    --on-marigold: #1A1206;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding-block: 28px 40px;
+    padding-inline: 18px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 430px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--marigold);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  /* ---------- identity ---------- */
+
+  .head {
+    padding: 34px 26px 28px;
+  }
+
+  .head h1 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.2rem, 10vw, 2.8rem);
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    margin: 0;
+  }
+
+  .role {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+    margin: 12px 0 0;
+    padding-top: 12px;
+    border-top: 3px solid var(--marigold);
+    display: inline-block;
+  }
+
+  .pitch {
+    margin: 18px 0 0;
+    font-size: 1.06rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 30ch;
+  }
+
+  /* ---------- save button ---------- */
+
+  .save-wrap { padding: 0 26px 26px; }
+
+  .save {
+    width: 100%;
+    background: var(--marigold);
+    color: var(--on-marigold);
+    border: none;
+    border-radius: 13px;
+    padding: 17px 20px;
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.06rem;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.15s ease;
+  }
+  .save:hover { background: var(--marigold-dp); }
+  .save svg { width: 19px; height: 19px; flex: none; }
+
+  .save-note {
+    margin: 11px 2px 0;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ---------- contact rows ---------- */
+
+  .rows {
+    border-top: 1px solid var(--rule);
+    background: var(--edge);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 26px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .row:last-child { border-bottom: none; }
+
+  .row .go {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .row .label {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+
+  .row .value {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.04rem;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+  }
+
+  .row .go:hover .value { color: var(--marigold-dp); }
+
+  .copy {
+    flex: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    border-radius: 8px;
+    padding: 7px 11px;
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 76px;
+    text-align: center;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .copy:hover { color: var(--ink); border-color: var(--ink-soft); }
+  .copy[data-done="yes"] { color: var(--marigold-dp); border-color: var(--marigold); }
+
+  /* ---------- what I do ---------- */
+
+  .does {
+    padding: 24px 26px 28px;
+  }
+
+  .does h2 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .does ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .does li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .does li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 10px;
+    height: 2px;
+    background: var(--marigold);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .save, .copy, .row .go .value { transition: none; }
+  }
+
+  @media (max-width: 380px) {
+    .head { padding: 28px 20px 24px; }
+    .save-wrap { padding: 0 20px 22px; }
+    .row { padding: 14px 20px; }
+    .does { padding: 20px 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="head">
+    <h1 id="fullName"></h1>
+    <p class="role" id="roleLine"></p>
+    <p class="pitch" id="pitchLine"></p>
+  </div>
+
+  <div class="save-wrap">
+    <button class="save" id="saveBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <line x1="19" y1="8" x2="19" y2="14"/>
+        <line x1="22" y1="11" x2="16" y2="11"/>
+      </svg>
+      Save to my contacts
+    </button>
+    <p class="save-note">Downloads a contact file — open it and your phone offers to save me.</p>
+  </div>
+
+  <div class="rows" id="rows"></div>
+
+  <div class="does">
+    <h2>What I build</h2>
+    <ul>
+      <li>Websites that make a small business look established to a new buyer.</li>
+      <li>Simple systems for enquiries and orders, so nothing gets forgotten.</li>
+      <li>Private catalogues only the buyers you approve can open.</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   EDIT EVERYTHING HERE. Nothing below this block needs changing.
+   ════════════════════════════════════════════════════════════ */
+const ME = {
+  firstName: "Nitesh",
+  lastName:  "Kyal",
+  role:      "Web & app developer · 10 years",   // shown on the card
+  jobTitle:  "Web & app developer",               // saved into their phone
+  pitch:     "I help businesses go digital and solve the problems that slow you down.",
+  phone:     "+91 98985 33068",
+  whatsapp:  "919898533068",
+  email:     "kyalnitesh@gmail.com",
+  website:   "https://kyalit.github.io",
+  linkedin:  "https://www.linkedin.com/in/kyalnitesh"
+};
+/* ════════════════════════════════════════════════════════════ */
+
+const displayName = [ME.firstName, ME.lastName].filter(Boolean).join(" ");
+document.getElementById("fullName").textContent = displayName;
+document.getElementById("roleLine").textContent = ME.role;
+document.getElementById("pitchLine").textContent = ME.pitch;
+document.title = displayName + " Card";
+
+/* ---- contact rows ---- */
+
+const ROWS = [
+  { label: "Phone",    value: ME.phone,    href: "tel:" + ME.phone.replace(/[^\d+]/g, ""), copy: ME.phone },
+  { label: "WhatsApp", value: "Message me", href: "https://wa.me/" + ME.whatsapp.replace(/\D/g, ""), external: true },
+  { label: "Email",    value: ME.email,    href: "mailto:" + ME.email, copy: ME.email },
+  { label: "Website",  value: ME.website.replace(/^https?:\/\//, ""), href: ME.website, external: true },
+  { label: "LinkedIn", value: "View profile", href: ME.linkedin, external: true }
+];
+
+const rowsEl = document.getElementById("rows");
+
+ROWS.forEach(function (item) {
+  const row = document.createElement("div");
+  row.className = "row";
+
+  const link = document.createElement("a");
+  link.className = "go";
+  link.href = item.href;
+  if (item.external) { link.target = "_blank"; link.rel = "noopener"; }
+
+  const label = document.createElement("span");
+  label.className = "label";
+  label.textContent = item.label;
+
+  const value = document.createElement("span");
+  value.className = "value";
+  value.textContent = item.value;
+
+  link.appendChild(label);
+  link.appendChild(value);
+  row.appendChild(link);
+
+  if (item.copy) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", function () {
+      copyText(item.copy, btn);
+    });
+    row.appendChild(btn);
+  }
+
+  rowsEl.appendChild(row);
+});
+
+function copyText(text, btn) {
+  function done() {
+    btn.textContent = "Copied";
+    btn.dataset.done = "yes";
+    setTimeout(function () {
+      btn.textContent = "Copy";
+      delete btn.dataset.done;
+    }, 1600);
+  }
+  try {
+    navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+  } catch (e) {
+    fallback(text, done);
+  }
+}
+
+function fallback(text, done) {
+  const box = document.createElement("textarea");
+  box.value = text;
+  box.setAttribute("readonly", "");
+  box.style.position = "fixed";
+  box.style.opacity = "0";
+  document.body.appendChild(box);
+  box.select();
+  try { document.execCommand("copy"); done(); } catch (e) { /* nothing to do */ }
+  document.body.removeChild(box);
+}
+
+/* ---- save to contacts (vCard) ---- */
+
+/* vCard needs \ ; , and newlines escaped, or the contact
+   breaks the moment any field contains one. */
+function esc(value) {
+  return String(value)
+    .replace(/\\/g, "\\\\")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,")
+    .replace(/\r?\n/g, "\\n");
+}
+
+document.getElementById("saveBtn").addEventListener("click", function () {
+  const lines = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:" + esc(ME.lastName || "") + ";" + esc(ME.firstName) + ";;;",
+    "FN:" + esc(displayName),
+    "TITLE:" + esc(ME.jobTitle),
+    "TEL;TYPE=CELL,VOICE:" + ME.phone.replace(/[^\d+]/g, ""),
+    "EMAIL;TYPE=INTERNET:" + esc(ME.email),
+    "URL:" + esc(ME.website),
+    "X-SOCIALPROFILE;TYPE=linkedin:" + esc(ME.linkedin),
+    "NOTE:" + esc(ME.pitch + "\nLinkedIn: " + ME.linkedin),
+    "END:VCARD"
+  ];
+
+  const blob = new Blob([lines.join("\r\n")], { type: "text/vcard;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = displayName.replace(/\s+/g, "-").toLowerCase() + ".vcf";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+});
+</script>
+
+</body>
+</html>
