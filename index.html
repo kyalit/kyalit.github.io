@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nitesh Kyal</title>
+<meta name="description" content="I help businesses go digital and solve the problems that slow you down.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:       #FBF8F3;
+    --paper-edge:  #F0EAE0;
+    --indigo:      #1B2A4A;
+    --indigo-soft: #56658A;
+    --rule:        #DED6C8;
+    --marigold:    #DE9412;
+    --marigold-dp: #B57509;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--indigo);
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 19px;
+    line-height: 1.65;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  .shell {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 3px solid var(--marigold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding: 76px 0 64px; }
+
+  .signature {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.22rem;
+    letter-spacing: -0.005em;
+    margin: 0;
+    display: inline-block;
+    padding-bottom: 6px;
+    border-bottom: 3px solid var(--marigold);
+  }
+
+  .role {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--indigo-soft);
+    margin: 10px 0 32px;
+  }
+
+  .hero h1 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 7.4vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    margin: 0 0 26px;
+    max-width: 15ch;
+    text-wrap: balance;
+  }
+
+  .hero .sub {
+    margin: 0;
+    font-size: 1.16rem;
+    line-height: 1.6;
+    color: var(--indigo-soft);
+    max-width: 44ch;
+  }
+
+  .animate-in {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.7s cubic-bezier(0.22, 0.75, 0.3, 1) forwards;
+  }
+  .hero .role.animate-in { animation-delay: 0.06s; }
+  .hero h1.animate-in    { animation-delay: 0.14s; }
+  .hero .sub.animate-in  { animation-delay: 0.24s; }
+
+  @keyframes rise {
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-in { animation: none; opacity: 1; transform: none; }
+  }
+
+  /* ---------- problems ---------- */
+
+  .problems {
+    border-top: 1px solid var(--rule);
+    padding: 54px 0 12px;
+  }
+
+  .problems > .shell > h2 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.4rem, 4.4vw, 1.75rem);
+    letter-spacing: -0.012em;
+    line-height: 1.25;
+    margin: 0 0 42px;
+    max-width: 22ch;
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 44px;
+    padding: 26px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .pair:first-of-type { border-top: none; padding-top: 0; }
+
+  .pair .snag {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.14rem;
+    line-height: 1.38;
+    margin: 0;
+    letter-spacing: -0.008em;
+  }
+
+  .pair .fix {
+    margin: 0;
+    color: var(--indigo-soft);
+    font-size: 1.04rem;
+    line-height: 1.62;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .pair .fix::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 10px;
+    height: 2px;
+    background: var(--marigold);
+  }
+
+  /* ---------- about ---------- */
+
+  .about {
+    border-top: 1px solid var(--rule);
+    margin-top: 40px;
+    padding: 54px 0 60px;
+  }
+
+  .about p {
+    margin: 0 0 20px;
+    font-size: 1.13rem;
+    max-width: 58ch;
+  }
+  .about p:last-child { margin-bottom: 0; color: var(--indigo-soft); }
+
+  /* ---------- contact ---------- */
+
+  .contact {
+    background: var(--paper-edge);
+    border-top: 1px solid var(--rule);
+    padding: 58px 0 64px;
+  }
+
+  .contact h2 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    letter-spacing: -0.015em;
+    margin: 0 0 8px;
+  }
+
+  .contact .lead {
+    margin: 0 0 34px;
+    color: var(--indigo-soft);
+    font-size: 1.08rem;
+    max-width: 40ch;
+  }
+
+  .save-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--marigold);
+    color: #24180A;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 22px;
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background 0.15s ease;
+  }
+  .save-card:hover { background: var(--marigold-dp); }
+  .save-card svg { width: 19px; height: 19px; flex: none; }
+
+  .save-note {
+    margin: 12px 0 0;
+    font-size: 0.86rem;
+    color: var(--indigo-soft);
+    max-width: 38ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .save-card { transition: none; }
+  }
+
+  .lines {
+    margin: 0;
+    display: grid;
+    gap: 2px;
+  }
+
+  .lines a {
+    display: block;
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.15rem, 4.2vw, 1.45rem);
+    letter-spacing: -0.012em;
+    text-decoration: none;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--rule);
+    overflow-wrap: anywhere;
+    transition: color 0.16s ease, padding-left 0.16s ease;
+  }
+  .lines a:first-child { border-top: 1px solid var(--rule); }
+  .lines a:hover { color: var(--marigold-dp); padding-left: 8px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lines a { transition: none; }
+    .lines a:hover { padding-left: 0; }
+  }
+
+  footer {
+    padding: 26px 0 34px;
+    font-size: 0.92rem;
+    color: var(--indigo-soft);
+  }
+
+  /* ---------- mobile ---------- */
+
+  @media (max-width: 640px) {
+    body { font-size: 18px; }
+    .shell { padding: 0 20px; }
+    .hero { padding: 54px 0 48px; }
+
+    .pair {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 22px 0;
+    }
+    .problems { padding-top: 44px; }
+    .problems > .shell > h2 { margin-bottom: 32px; }
+    .about { padding: 44px 0 48px; }
+    .contact { padding: 46px 0 52px; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="shell">
+      <p class="signature animate-in">Nitesh Kyal</p>
+      <p class="role animate-in">Web &amp; app developer · 10 years</p>
+      <h1 class="animate-in">I help businesses go digital and solve the problems that slow you down.</h1>
+      <p class="sub animate-in">Websites, apps and simple systems built around how your business already works — not the other way round.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="problems">
+      <div class="shell">
+        <h2>Some of what I fix for business owners</h2>
+
+        <div class="pair">
+          <p class="snag">Enquiries arrive on WhatsApp, on calls, in person — and a few quietly get forgotten.</p>
+          <p class="fix">One place where every enquiry lands, with who asked for what and when, so nothing slips past you on a busy day.</p>
+        </div>
+
+        <div class="pair">
+          <p class="snag">A buyer looks you up online and finds nothing to go on.</p>
+          <p class="fix">A clear page that shows who you are and what you make. You look established before the first conversation even starts.</p>
+        </div>
+
+        <div class="pair">
+          <p class="snag">Orders live in a notebook and in your head.</p>
+          <p class="fix">Pending, in progress and delivered, all visible in one place — so your staff can answer a customer without coming to you first.</p>
+        </div>
+
+        <div class="pair">
+          <p class="snag">Your designs and rates shouldn't be out in the open.</p>
+          <p class="fix">A private catalogue only the buyers you approve can open, shared through links that stop working after a few days.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="shell">
+        <p>I've spent ten years building software, and the most useful thing I've learned is that the best solution is usually the smallest one. Most businesses don't need a big system. They need one stubborn daily problem taken off their plate.</p>
+        <p>So I start by asking what's actually slowing you down, and only then work out whether something needs building at all.</p>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="shell">
+        <h2>Let's talk</h2>
+        <p class="lead">Tell me what's harder than it should be. No charge for the conversation.</p>
+
+        <div class="lines">
+          <a href="tel:+919898533068">+91 98985 33068</a>
+          <a href="mailto:kyalnitesh@gmail.com">kyalnitesh@gmail.com</a>
+          <a href="https://www.linkedin.com/in/kyalnitesh" target="_blank" rel="noopener">linkedin.com/in/kyalnitesh</a>
+        </div>
+
+        <button class="save-card" id="saveCard" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <line x1="19" y1="8" x2="19" y2="14"/>
+            <line x1="22" y1="11" x2="16" y2="11"/>
+          </svg>
+          Save my contact
+        </button>
+        <p class="save-note">Saves all three to your phone in one tap.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">Nitesh Kyal</div>
+  </footer>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   Keep these in step with the three links in the contact
+   section above, and with card/index.html.
+   ════════════════════════════════════════════════════════ */
+const ME = {
+  firstName: "Nitesh",
+  lastName:  "Kyal",
+  jobTitle:  "Web & app developer",
+  pitch:     "I help businesses go digital and solve the problems that slow you down.",
+  phone:     "+91 98985 33068",
+  email:     "kyalnitesh@gmail.com",
+  website:   "https://kyalit.github.io",
+  linkedin:  "https://www.linkedin.com/in/kyalnitesh"
+};
+/* ════════════════════════════════════════════════════════ */
+
+/* vCard needs \ ; , and newlines escaped, or the contact
+   breaks the moment any field contains one. */
+function esc(value) {
+  return String(value)
+    .replace(/\\/g, "\\\\")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,")
+    .replace(/\r?\n/g, "\\n");
+}
+
+document.getElementById("saveCard").addEventListener("click", function () {
+  const fullName = [ME.firstName, ME.lastName].filter(Boolean).join(" ");
+  const lines = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:" + esc(ME.lastName || "") + ";" + esc(ME.firstName) + ";;;",
+    "FN:" + esc(fullName),
+    "TITLE:" + esc(ME.jobTitle),
+    "TEL;TYPE=CELL,VOICE:" + ME.phone.replace(/[^\d+]/g, ""),
+    "EMAIL;TYPE=INTERNET:" + esc(ME.email),
+    "URL:" + esc(ME.website),
+    "X-SOCIALPROFILE;TYPE=linkedin:" + esc(ME.linkedin),
+    "NOTE:" + esc(ME.pitch + "\nLinkedIn: " + ME.linkedin),
+    "END:VCARD"
+  ];
+
+  const blob = new Blob([lines.join("\r\n")], { type: "text/vcard;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fullName.replace(/\s+/g, "-").toLowerCase() + ".vcf";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+});
+</script>
+
+</body>
+</html>
