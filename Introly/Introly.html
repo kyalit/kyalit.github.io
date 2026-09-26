@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Instant Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #12221D;
+    --ink-panel: #1A2E27;
+    --ink-panel-2: #203830;
+    --hairline: #2E4B41;
+    --paper: #F4EFE2;
+    --paper-dim: #A9BDB4;
+    --amber: #D99A3E;
+    --amber-bright: #EBAE54;
+    --danger: #D97757;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--ink);
+  }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--paper);
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 18px 48px;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(217,154,62,0.10), transparent 45%),
+      var(--ink);
+  }
+
+  .wrap { width: 100%; max-width: 460px; }
+
+  header { margin-bottom: 22px; }
+  header h1 {
+    font-family: "Fraunces", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 6vw, 2.05rem);
+    line-height: 1.15;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  header p {
+    margin: 0;
+    color: var(--paper-dim);
+    font-size: 0.96rem;
+    line-height: 1.5;
+    max-width: 40ch;
+  }
+
+  .card {
+    background: var(--ink-panel);
+    border: 1px solid var(--hairline);
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--paper-dim);
+    margin-bottom: 8px;
+  }
+
+  .phone-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .phone-row input[type="text"] {
+    width: 62px;
+    flex: 0 0 62px;
+    text-align: center;
+  }
+  .phone-row input[type="tel"] {
+    flex: 1;
+    min-width: 0;
+  }
+
+  input, textarea {
+    background: var(--ink-panel-2);
+    border: 1px solid var(--hairline);
+    color: var(--paper);
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1rem;
+    width: 100%;
+  }
+  input:focus, textarea:focus, button:focus-visible, a.pill:focus-visible {
+    outline: 2px solid var(--amber-bright);
+    outline-offset: 1px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 108px;
+    line-height: 1.45;
+  }
+  ::placeholder { color: #6E8A80; }
+
+  .msg-block { margin-bottom: 8px; }
+  .reset-line {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 18px;
+  }
+  .reset-line button {
+    background: none;
+    border: none;
+    color: var(--paper-dim);
+    font-size: 0.82rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .reset-line button:hover { color: var(--paper); }
+
+  .send-btn {
+    width: 100%;
+    background: var(--amber);
+    color: #1A1206;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 18px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.02rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+  .send-btn:hover { background: var(--amber-bright); }
+  .send-btn:active { transform: scale(0.985); }
+  .send-btn svg { width: 19px; height: 19px; flex: none; }
+
+  .hint {
+    font-size: 0.78rem;
+    color: var(--paper-dim);
+    margin: 10px 2px 0;
+    line-height: 1.5;
+  }
+
+  .error {
+    font-size: 0.82rem;
+    color: var(--danger);
+    margin: 10px 2px 0;
+    min-height: 1.2em;
+  }
+
+  .recent {
+    margin-top: 4px;
+  }
+  .recent h2 {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--paper-dim);
+    margin: 0 0 10px;
+  }
+  .recent-empty {
+    font-size: 0.85rem;
+    color: var(--paper-dim);
+    padding: 4px 2px;
+  }
+  .recent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 2px;
+    border-top: 1px solid var(--hairline);
+    font-size: 0.9rem;
+    gap: 10px;
+  }
+  .recent-item:first-of-type { border-top: none; }
+  .recent-item .num { color: var(--paper); }
+  .recent-item .time { color: var(--paper-dim); font-size: 0.78rem; flex: none; }
+
+  @media (max-width: 380px) {
+    .card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Send it before they've said goodbye.</h1>
+    <p>Type in a number, tap send — WhatsApp opens with your intro already written.</p>
+  </header>
+
+  <div class="card">
+    <div class="msg-block">
+      <label for="message">Your message</label>
+      <textarea id="message" spellcheck="true"></textarea>
+    </div>
+    <div class="reset-line">
+      <button type="button" id="resetBtn">Reset to default message</button>
+    </div>
+
+    <label for="phone">Their WhatsApp number</label>
+    <div class="phone-row">
+      <input type="text" id="countryCode" value="+91" inputmode="tel" aria-label="Country code">
+      <input type="tel" id="phone" placeholder="98765 43210" inputmode="numeric" aria-label="Phone number">
+    </div>
+
+    <button class="send-btn" id="sendBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.4 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.9 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.2-8.4 8.2z"/></svg>
+      Open in WhatsApp
+    </button>
+    <p class="error" id="errorMsg"></p>
+    <p class="hint">Opens WhatsApp with your message ready to send — nothing goes out until you tap Send in WhatsApp.</p>
+  </div>
+
+  <div class="card recent">
+    <h2>Sent to today</h2>
+    <div id="recentList"><p class="recent-empty">No one yet — get in there.</p></div>
+  </div>
+</div>
+
+<script>
+  const DEFAULT_MESSAGE = "Hi! Great connecting today. I'm Nitesh — I help businesses go digital and fix things that are slowing them down (websites, apps, order and catalog systems). Here's my page: [link]. Would love to stay in touch!";
+
+  const messageEl = document.getElementById('message');
+  const countryEl = document.getElementById('countryCode');
+  const phoneEl = document.getElementById('phone');
+  const errorEl = document.getElementById('errorMsg');
+  const recentListEl = document.getElementById('recentList');
+
+  function safeGet(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function safeSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
+  }
+
+  function loadMessage() {
+    const saved = safeGet('ic_message');
+    messageEl.value = (saved !== null && saved !== '') ? saved : DEFAULT_MESSAGE;
+  }
+  messageEl.addEventListener('input', () => safeSet('ic_message', messageEl.value));
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    messageEl.value = DEFAULT_MESSAGE;
+    safeSet('ic_message', DEFAULT_MESSAGE);
+  });
+
+  const savedCountry = safeGet('ic_country');
+  if (savedCountry) countryEl.value = savedCountry;
+  countryEl.addEventListener('input', () => safeSet('ic_country', countryEl.value));
+
+  function loadRecents() {
+    let list = [];
+    try { list = JSON.parse(safeGet('ic_recents') || '[]'); } catch (e) { list = []; }
+    return Array.isArray(list) ? list : [];
+  }
+  function saveRecents(list) {
+    safeSet('ic_recents', JSON.stringify(list.slice(0, 8)));
+  }
+  function renderRecents() {
+    const list = loadRecents();
+    if (list.length === 0) {
+      recentListEl.innerHTML = '<p class="recent-empty">No one yet — get in there.</p>';
+      return;
+    }
+    recentListEl.innerHTML = list.map(item => {
+      const safeNum = String(item.number).replace(/[<>&]/g, '');
+      return '<div class="recent-item"><span class="num">' + safeNum + '</span><span class="time">' + item.time + '</span></div>';
+    }).join('');
+  }
+
+  function formatTime(d) {
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  document.getElementById('sendBtn').addEventListener('click', () => {
+    errorEl.textContent = '';
+    const digits = phoneEl.value.replace(/\D/g, '');
+    const codeDigits = countryEl.value.replace(/\D/g, '');
+
+    if (digits.length < 7) {
+      errorEl.textContent = 'That number looks too short — check it and try again.';
+      return;
+    }
+    if (!codeDigits) {
+      errorEl.textContent = 'Add a country code, like +91.';
+      return;
+    }
+
+    const fullNumber = codeDigits + digits;
+    const text = encodeURIComponent(messageEl.value);
+    const url = 'https://wa.me/' + fullNumber + '?text=' + text;
+
+    window.open(url, '_blank');
+
+    const list = loadRecents();
+    list.unshift({ number: '+' + codeDigits + ' ' + digits, time: formatTime(new Date()) });
+    saveRecents(list);
+    renderRecents();
+
+    phoneEl.value = '';
+  });
+
+  phoneEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('sendBtn').click();
+  });
+
+  loadMessage();
+  renderRecents();
+</script>
+</body>
+</html>
